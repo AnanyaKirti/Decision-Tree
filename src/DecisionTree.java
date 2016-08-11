@@ -20,9 +20,12 @@ public class DecisionTree {
 		    	InstanceSet.add(new Instance(line));
 		    	du = InstanceSet.get(InstanceSet.size()-1).getClassLabel();
 		    	System.out.println("from the method "+ du);
-		    	
-		    	
 		    }
+		    
+		    long seed = System.nanoTime();
+		    Collections.shuffle(InstanceSet, new Random(seed)); // randomised the instance set.
+		    List<Instance> TrainingSet ;
+		    List<Instance> TestSet;
 		}
 		catch (Exception e) {
 			System.out.println("Error in opening file!");
