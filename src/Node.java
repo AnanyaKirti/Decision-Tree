@@ -8,10 +8,10 @@ import java.util.List;
 class Node {
 	// attribute list as integer
 	// used to check the available instances.
-	private List<Integer> attr;
+	private List<Integer> attributeAvailable;
 	
 	// the Target attribute
-	private int targetAttr;
+	private int targetAttribute;
 
 	//children list
     private List<Node> children;
@@ -20,7 +20,7 @@ class Node {
     private Node parent;
 
     //Instance list
-    private List<Instance> inst;
+    private List<Instance> instances;
     
     public Node() {
         super();
@@ -35,9 +35,9 @@ class Node {
     public Node(List<Integer> attr,List<Instance> inst) {
         this();
         this.parent=null;
-        this.targetAttr=-1;
+        this.targetAttribute=-1;
         setAttr(attr);
-        setInst(inst);
+        setInstances(inst);
     }
     
     /** to get children array list
@@ -89,23 +89,23 @@ class Node {
      * @return returns the data associated with the list.
      */
     public List<Integer> getData() {
-        return this.attr;
+        return this.attributeAvailable;
     }
     
     /** set attribute list of integers
      * 
-     * @param attr sets the attr
+     * @param attr sets the attribute
      */
-    public void setAttr(List<Integer> attr) {
-        this.attr = attr;
+    public void setAttr(List<Integer> attribute) {
+        this.attributeAvailable = attribute;
     }
     
     /** Method to get Instances in current node
      * 
      * @return Instances associated with the node.
      */
-    public List<Instance> getInst() {
-         return this.inst;
+    public List<Instance> getInstances() {
+         return this.instances;
     }
     
     /** Method to set instances in current node
@@ -113,16 +113,16 @@ class Node {
      * 
      * @param Instance list
      */
-    public void setInst(List<Instance> inst) {
-         this.inst = inst;
+    public void setInstances(List<Instance> inst) {
+         this.instances = inst;
     }
     
     /** Methdo to set the parent node
      * 
-     * @param par
+     * @param parent
      */
-    public void setParent(Node par){
-    	this.parent=par;
+    public void setParent(Node parent){
+    	this.parent = parent;
     } 
     
     /** Method to get the parent node.
@@ -135,16 +135,16 @@ class Node {
      * Method to set target attribute
      * @param targetAttr
      */
-    public void setTargeAttr(int targetAttr){
-    	this.targetAttr=targetAttr;
+    public void setTargeAttribute(int targetAttribute){
+    	this.targetAttribute = targetAttribute;
     }
     /**
      * Method to get target attribute
      *
      * @return the target attribute
      */
-    public int getTargetAttr(){
-    	return this.targetAttr;
+    public int getTargetAttribute(){
+    	return this.targetAttribute;
     }
 }
 

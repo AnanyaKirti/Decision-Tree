@@ -84,6 +84,7 @@ public class DecisionTree {
 		
 		
 	}
+}
 	
 	
 	
@@ -94,14 +95,20 @@ public class DecisionTree {
 	 * Method to extract the best feature
 	 * @param attr	The list of available attributes.
 	 * @param inst	The list of the instances available at the node.
+	 * @param medianFeature the median of the features, used to split the data.
 	 * @return The index of the best feature, the target feature.
 	 */
-//	private int getBestFeature( List<Integer> attr, List<Instance> inst, int[] medianFeature){
+//	@SuppressWarnings("unused")
+//	private static int getBestFeature( List<Integer> attr, List<Instance> inst, int[] medianFeature, float entropy){
 //		
 //		// TODO finish the function
 //		
 //		float informationGain = 0f;
 //		float bestInformationGain = 0f;
+//		float entropy = 1f;
+//		float entropyLeft = 1f;
+//		float entropyRight = 1f;
+//		
 //		int targetAtribute = -1;
 //		for (int index = 0; index < attr.size(); index++) {
 //			if (attr.get(index)== 1) {
@@ -111,9 +118,9 @@ public class DecisionTree {
 //				}
 //			}
 //		}
-//		
+//
 //		
 //		return targetAtribute;
 //	}
-
-}
+//
+//}
