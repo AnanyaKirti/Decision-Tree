@@ -56,13 +56,18 @@ class Instance{
 	    return result;
 	}
 	
+	
+	public int[] getAllFeatureValue(){
+		return featureList;
+	}
+	
 	/**
 	 * Method to get the value of the required feature.
 	 *  
 	 * @param i The ith feature
 	 * @return	returns the value of the feature.
 	 */
-	public int getFeature(int i){
+	public int getFeatureValue(int i){
 		try {
 			return featureList[i];
 		} catch (Exception e) {
