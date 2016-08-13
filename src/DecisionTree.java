@@ -15,43 +15,13 @@ public class DecisionTree {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		// TODO use args
 		
-
-		try (BufferedReader br = new BufferedReader(new FileReader("ticdata2000.txt"))) {
-			// read the 1st line of input, that is the number of Instances
-		    int numberOfInstances = Integer.parseInt(br.readLine());
-		    System.out.println("number of Instances is: " + numberOfInstances);
-
-			// read the 2nd line of input, that is the number of Features
-		    int numberOfFeatures= Integer.parseInt(br.readLine());
-		    System.out.println("number of Features is: " + numberOfFeatures); 
-		    
-		    // read the rest of the input data.
-		    String line; // string iterator.
-		    List<Instance> InstanceSet = new ArrayList<Instance>(); // The list of all instances.
-		    while ((line = br.readLine()) != null) {
-		    	InstanceSet.add(new Instance(line));	// populate the list of all instances.
-		     }
-		    
-		    //randomised the instance set.
-		    long seed = System.nanoTime();
-		    Collections.shuffle(InstanceSet, new Random(seed)); 
-		    
-		    // select the first 1000 instances as the Training set, the rest become the test set.
-		    List<Instance> TrainingSet = new ArrayList<Instance>();
-		    for (int i = 0; i < 1000; i++) {
-		    	// add the instance to the TrainingSet, and delete it from the Instance Set.
-		    	TrainingSet.add(InstanceSet.remove(0));
-			}
-			
-		    
-		}
-		catch (Exception e) {
-			System.out.println("Error in opening file!");
-		}
 		
+		File file = new File("ticdata2000.txt");
 		
-		
-		
+//		List<Instance> TrainingSet = file.TrainingSet;
+//		List<Instance> TestSet = file.InstanceSet;
+//		int numberOfInstances = file.numberOfInstances;
+//		int numberOfFeatures= file.numberOfFeatures;
 		
 	}
 }
