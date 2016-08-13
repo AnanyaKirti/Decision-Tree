@@ -51,6 +51,12 @@ class Instance{
 	    int[] result = new int[split.length -1];
 	    for (int i = 0; i < split.length -1; i++) {
 	        result[i] = Integer.parseInt(split[i]);
+	        if (File.FeatureValues.get(i).contains(result[i])) {
+				;
+			}
+	        else{
+	        	File.FeatureValues.get(i).add(result[i]);
+	        }
 	    }
 	    classLabel = Integer.parseInt(split[split.length - 1]);
 	    return result;

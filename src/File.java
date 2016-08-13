@@ -8,6 +8,7 @@ import java.util.Random;
 public class File {
 	List<Instance> TrainingSet = new ArrayList<Instance>();
 	List<Instance> InstanceSet = new ArrayList<Instance>();
+	static List<List<Integer>> FeatureValues = new ArrayList<List<Integer>>();
 	int numberOfInstances;
 	int numberOfFeatures;
 	
@@ -22,6 +23,10 @@ public class File {
 			// read the 2nd line of input, that is the number of Features
 		    numberOfFeatures = Integer.parseInt(br.readLine());
 		    System.out.println("number of Features is: " + numberOfFeatures); 
+		    
+		    for (int i = 0; i < numberOfFeatures; i++) {
+				FeatureValues.add(i, new ArrayList<Integer>());
+		    }
 		    
 		    // read the rest of the input data.
 		    String line; // string iterator.

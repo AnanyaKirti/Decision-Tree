@@ -22,6 +22,11 @@ class Node {
     //Instance list
     private List<Instance> instances;
     
+    
+    /**
+     * 
+     * TODO add features to this.
+     */
     public Node() {
         super();
     }
