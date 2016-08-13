@@ -51,10 +51,12 @@ class Instance{
 	    int[] result = new int[split.length -1];
 	    for (int i = 0; i < split.length -1; i++) {
 	        result[i] = Integer.parseInt(split[i]);
-	        if (File.FeatureValues.get(i).contains(result[i])) {
-				;
-			}
-	        else{
+	        
+	        /**
+	         * Function to add all the possible values of feature to the
+	         * FeatureValues 
+	         */
+	        if (!File.FeatureValues.get(i).contains(result[i])) {
 	        	File.FeatureValues.get(i).add(result[i]);
 	        }
 	    }

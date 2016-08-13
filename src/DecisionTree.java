@@ -16,7 +16,7 @@ public class DecisionTree {
 		
 		File file = new File("ticdata2000.txt");
 		TreeBuilderClass.BuildTree(file);
-		System.out.println(File.FeatureValues.get(1));
+//		System.out.println(File.FeatureValues.get(0));
 		
 		
 		
