@@ -83,7 +83,7 @@ class Tree {
 class Node {
 	//attribute list as integer
 	public List<Integer> attr;
-	
+	public int targetAttr;
 	//children list
     public List<Node> children;
 
@@ -94,6 +94,7 @@ class Node {
     public List<Instance> inst;
     
     public Node() {
+    	
         super();
     }
     /**
@@ -106,6 +107,7 @@ class Node {
     public Node(List<Integer> attr,List<Instance> inst) {
         this();
         this.parent=null;
+        this.targetAttr=-1;
         setAttr(attr);
         setInst(inst);
     }
@@ -200,6 +202,21 @@ class Node {
      */
     public Node getParent(){
     	return this.parent;
+    }
+    /**
+     * 
+     * @param targetAttr
+     */
+    public void setTargeAttr(int targetAttr){
+    	this.targetAttr=targetAttr;
+    }
+    /**
+     * Method to get target attribute
+     *
+     * @return
+     */
+    public int getTargetAttr(){
+    	return this.targetAttr;
     }
 }
 
