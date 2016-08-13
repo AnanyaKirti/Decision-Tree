@@ -57,6 +57,10 @@ class Instance{
 	}
 	
 	
+	/**
+	 * Method to return the feature list of the instance.
+	 * @return the featureList of the instance
+	 */
 	public int[] getAllFeatureValue(){
 		return featureList;
 	}

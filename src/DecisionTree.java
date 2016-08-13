@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+import sun.util.logging.resources.logging;
 
 
 public class DecisionTree {
@@ -84,7 +85,7 @@ public class DecisionTree {
 		
 		
 	}
-}
+
 	
 	
 	
@@ -93,34 +94,56 @@ public class DecisionTree {
 	
 	/**
 	 * Method to extract the best feature
-	 * @param attr	The list of available attributes.
-	 * @param inst	The list of the instances available at the node.
+	 * @param attributeAvailable	The list of available attributes.
+	 * @param instances	The list of the instances available at the node.
 	 * @param medianFeature the median of the features, used to split the data.
 	 * @return The index of the best feature, the target feature.
 	 */
-//	@SuppressWarnings("unused")
-//	private static int getBestFeature( List<Integer> attr, List<Instance> inst, int[] medianFeature, float entropy){
-//		
-//		// TODO finish the function
-//		
-//		float informationGain = 0f;
-//		float bestInformationGain = 0f;
-//		float entropy = 1f;
-//		float entropyLeft = 1f;
-//		float entropyRight = 1f;
-//		
-//		int targetAtribute = -1;
-//		for (int index = 0; index < attr.size(); index++) {
-//			if (attr.get(index)== 1) {
-//				informationGain = 0;
-//				for (Instance instance : inst) {
-//					instance.getFeatureValue(index);
-//				}
-//			}
-//		}
-//
-//		
-//		return targetAtribute;
-//	}
-//
-//}
+	@SuppressWarnings("unused")
+	private static int getBestFeature( List<Integer> attributeAvailable, List<Instance> instances, int[] medianFeature, float entropy){
+		
+		// TODO finish the function
+		
+		float informationGain = 0f;
+		float bestInformationGain = 0f;
+//		float entropy = 1	f;
+		float entropyLeft = 1f;
+		float entropyRight = 1f;
+		
+		int numberOfInstances = instances.size();
+		int targetAtribute = -1;
+		
+		for (int index = 0; index < attributeAvailable.size(); index++) {
+			informationGain = 0;
+		    int[] leftChild = new int[3];
+		    int[] rightChild = new int[3];
+
+			
+			if (attributeAvailable.get(index) == 1) {
+				informationGain = 0;
+				for (Instance instance : instances) {
+					if (instance.getFeatureValue(index) < medianFeature[index]) {
+						leftChild[instance.getClassLabel()]++;
+						leftChild[2]++;
+					}
+					else {
+						rightChild[instance.getClassLabel()]++;
+						rightChild[2]++;
+					}
+				}
+			}
+			
+			entropyLeft = (float) (-1*leftChild[0]/leftChild[2]* Math.log(leftChild[0]/leftChild[2])) + (float) (-1*leftChild[1]/leftChild[2]* Math.log(leftChild[1]/leftChild[2]));
+			entropyRight= (float) (-1*rightChild[0]/rightChild[2]* Math.log(rightChild[0]/rightChild[2])) + (float) (-1*rightChild[1]/rightChild[2]* Math.log(leftChild[1]/leftChild[2]));
+			
+			informationGain = entropy - entropyLeft/numberOfInstances - entropyRight/numberOfInstances;
+			
+
+			
+		}
+		
+		
+		return targetAtribute;
+	}
+}
+
