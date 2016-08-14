@@ -9,7 +9,7 @@ public class File {
 	List<Instance> TrainingSet = new ArrayList<Instance>();
 	List<Instance> InstanceSet = new ArrayList<Instance>();
 	static List<List<Integer>> FeatureValues = new ArrayList<List<Integer>>();
-	static List<Integer> attributeAvailable = new ArrayList<Integer>();
+	List<Integer> attributeAvailable = new ArrayList<Integer>();
 	int numberOfInstances;
 	int numberOfFeatures;
 	

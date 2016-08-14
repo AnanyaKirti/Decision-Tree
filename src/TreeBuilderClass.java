@@ -5,6 +5,10 @@ import java.util.List;
  *
  */
 public abstract class TreeBuilderClass {
+	
+	
+	static int[] splitCount = new int[85];
+	
 	/**
 	 * 	Method to initialise the Decision Tree.
 	 * 
@@ -14,9 +18,9 @@ public abstract class TreeBuilderClass {
 	public static Node BuildTree(File file){
 		
 		// initialise the root node of the tree
-		Node rootNode = new Node();
+		Node rootNode = new Node(file.InstanceSet, file.attributeAvailable );
 //		System.out.println(File.attributeAvailable.size());
-		BuildTreeHelper(rootNode, file.TrainingSet, File.attributeAvailable);
+		BuildTreeHelper(rootNode, file.TrainingSet);
 		
 		return rootNode;
 	}
@@ -28,29 +32,51 @@ public abstract class TreeBuilderClass {
 	 * @param attributeAvailable The attributes that have not yet been used
 	 * @param instances	The instances available at the node.
 	 */
-	public static void BuildTreeHelper(Node node, List<Instance> instances, List<Integer> attributeAvailable){
+	public static void BuildTreeHelper(Node node, List<Instance> instances){
+		
+		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
+			System.out.print(TreeBuilderClass.splitCount[i]);
+		}
+		System.out.println("  ");
+		
+		
 		// get the entropy of the current node.
-		float currentEntropy = getEntropy(instances);
-		
+//		float currentEntropy = getEntropy(instances);
+		List<Integer> attributeAvailable = node.getAttribute();
 		int bestAttribute = getBestAttribute(instances, attributeAvailable);
-		
-		// create a list of list to maintain which instance goes in which child node
-		List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
-		for(int j = 0; j<File.FeatureValues.get(bestAttribute).size(); j++){
-			// initialise the list of list
-			childrenInstances.add(j, new ArrayList<Instance>());
-		}
-
-		// iterate over the instances to sort the instances.
-		for (Instance instance : instances) {
-			// select which child node the instance belongs to 
-			int index = File.FeatureValues.get(bestAttribute).indexOf(instance.getFeatureValue(bestAttribute));
-			// add the instance to the child node.
-			childrenInstances.get(index).add(instance);
-			// increase the value of the child node instances
-		}
-		
-		
+		node.setTargeAttribute(bestAttribute);
+		if (bestAttribute != -1) {
+			
+//			System.out.println(bestAttribute);
+			attributeAvailable.set(bestAttribute, new Integer(0));
+			node.setAttribute(attributeAvailable);
+			splitCount[bestAttribute]++;
+			
+			// create a list of list to maintain which instance goes in which child node
+			List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
+			for(int j = 0; j<File.FeatureValues.get(bestAttribute).size(); j++){
+				// initialise the list of list
+				childrenInstances.add(j, new ArrayList<Instance>());
+			}
+	
+			// iterate over the instances to sort the instances.
+			for (Instance instance : instances) {
+				// select which child node the instance belongs to 
+				int index = File.FeatureValues.get(bestAttribute).indexOf(instance.getFeatureValue(bestAttribute));
+				// add the instance to the child node.
+				childrenInstances.get(index).add(instance);
+				// increase the value of the child node instances
+			}
+			
+			// create the child of the node.
+			for (List<Instance> child : childrenInstances) {
+				node.addChild(new Node(child , attributeAvailable));
+				if (isPure(child) != 1) {
+					BuildTreeHelper(node.getLastChild(), child);
+				}
+			}
+			
+		}		
 	}
 
 	
@@ -169,4 +195,27 @@ public abstract class TreeBuilderClass {
 //		System.out.println(minEntropy);
 		return bestAttribute;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * Method to check if the node is pure, i.e. is populated with only one class label.
+	 * @param instances	the instances associated with the node
+	 * @return	returns 1 if true, 0 if false.
+	 */
+	private static int isPure(List<Instance> instances){
+		int state = 1;
+		if (instances.size() < 2) {
+			return 1;
+		}
+		for (int i = 1; i < instances.size(); i++) {
+			if (instances.get(i-1).getClassLabel() != instances.get(1).getClassLabel()) {
+				state = 0;
+				return state;
+			}
+		}
+		return state;
+	}
 }
+

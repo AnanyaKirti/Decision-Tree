@@ -37,12 +37,12 @@ class Node {
      * @param attr attribute list as integer
      * @param inst Instance list
      */
-    public Node(List<Integer> attr,List<Instance> inst) {
+    public Node(List<Instance> instances , List<Integer> attributeAvailable) {
         this();
         this.parent=null;
         this.targetAttribute=-1;
-        setAttr(attr);
-        setInstances(inst);
+        setAttribute(attributeAvailable);
+        setInstances(instances);
     }
     
     /** to get children array list
@@ -88,42 +88,46 @@ class Node {
         }
         children.add(child);
     }
+    
+    public Node getLastChild(){
+    	return children.get(children.size()-1);
+    }
    
-    /** get attribute list for this node
-     * 
+    /** 
+     * get attribute list for this node
      * @return returns the data associated with the list.
      */
-    public List<Integer> getData() {
+    public List<Integer> getAttribute() {
         return this.attributeAvailable;
     }
     
-    /** set attribute list of integers
-     * 
+    /** 
+     * set attribute list of integers
      * @param attr sets the attribute
      */
-    public void setAttr(List<Integer> attribute) {
+    public void setAttribute(List<Integer> attribute) {
         this.attributeAvailable = attribute;
     }
     
-    /** Method to get Instances in current node
-     * 
+    
+    /** 
+     * Method to get Instances in current node
      * @return Instances associated with the node.
      */
     public List<Instance> getInstances() {
          return this.instances;
     }
     
-    /** Method to set instances in current node
-     * 
-     * 
+    /** 
+     * Method to set instances in current node
      * @param Instance list
      */
     public void setInstances(List<Instance> inst) {
          this.instances = inst;
     }
     
-    /** Methdo to set the parent node
-     * 
+    /** 
+     * Method to set the parent node
      * @param parent
      */
     public void setParent(Node parent){
@@ -131,7 +135,6 @@ class Node {
     } 
     
     /** Method to get the parent node.
-     * 
      */
     public Node getParent(){
     	return this.parent;

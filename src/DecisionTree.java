@@ -18,6 +18,9 @@ public class DecisionTree {
 		File file = new File("ticdata2000.txt");
 		TreeBuilderClass.BuildTree(file);
 		
+//		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
+//			System.out.println("Feature " + i + " count : " + TreeBuilderClass.splitCount[i]);
+//		}
 		long executionTime = ((long)System.nanoTime() - startTime) / 1000000000;
 		System.out.print("Time for execution " + executionTime);
 
