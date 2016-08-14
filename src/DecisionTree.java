@@ -1,5 +1,4 @@
-
-
+import apple.laf.JRSUIUtils.Tree;
 
 public class DecisionTree {
 
@@ -15,11 +14,13 @@ public class DecisionTree {
 		long startTime = System.nanoTime();
 		
 		File file = new File("ticdata2000.txt");
-		TreeBuilderClass.BuildTree(file);
+		Node rootNode = TreeBuilderClass.BuildTree(file);
 		
 		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
 			System.out.println("Feature " + i + " count : " + TreeBuilderClass.splitCount[i]);
 		}
+		
+		TreeTesterClass.TreeTester(rootNode, file);
 		long executionTime = (System.nanoTime() - startTime) / 1000000000;
 		System.out.print("Time for execution " + executionTime);
 		

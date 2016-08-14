@@ -18,7 +18,7 @@ public abstract class TreeBuilderClass {
 			attributeAvailable.add(1);
 		}
 		// initialise the root node of the tree
-		Node rootNode = new Node(file.InstanceSet, attributeAvailable );
+		Node rootNode = new Node(file.TrainingSet, attributeAvailable );
 		BuildTreeHelper(rootNode, file.TrainingSet);
 		return rootNode;
 	}
@@ -173,9 +173,7 @@ public abstract class TreeBuilderClass {
 		}
 		return bestAttribute;
 	}
-	
-	
-	
+
 	/**
 	 * Method to check if the node is pure, i.e. is populated with only one class label.
 	 * @param instances	the instances associated with the node
