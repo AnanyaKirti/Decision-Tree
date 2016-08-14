@@ -13,10 +13,17 @@ public class DecisionTree {
 	public static void main(String[] args){
 		// TODO use args
 		
+		long startTime = System.nanoTime();
+
 		
 		File file = new File("ticdata2000.txt");
 		TreeBuilderClass.BuildTree(file);
 //		System.out.println(File.FeatureValues.get(0));
+		
+		long executionTime = ((long)System.nanoTime() - startTime) / 1000000000;
+		System.out.print("Time for execution ");
+		System.out.println(executionTime);
+
 		
 		
 		

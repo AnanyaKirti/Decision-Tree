@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +10,7 @@ public class File {
 	List<Instance> TrainingSet = new ArrayList<Instance>();
 	List<Instance> InstanceSet = new ArrayList<Instance>();
 	static List<List<Integer>> FeatureValues = new ArrayList<List<Integer>>();
+	static List<Integer> attributeAvailable = new ArrayList<Integer>();
 	int numberOfInstances;
 	int numberOfFeatures;
 	
@@ -26,6 +28,7 @@ public class File {
 		    
 		    for (int i = 0; i < numberOfFeatures; i++) {
 				FeatureValues.add(i, new ArrayList<Integer>());
+				attributeAvailable.add(1);
 		    }
 		    
 		    // read the rest of the input data.
@@ -42,6 +45,10 @@ public class File {
 		    for (int i = 0; i < 1000; i++) {
 		    	// add the instance to the TrainingSet, and delete it from the Instance Set.
 		    	TrainingSet.add(InstanceSet.remove(0));
+			}
+		    
+		    for (List<Integer> list : FeatureValues) {
+		    	Collections.sort(list);
 			}
 		}
 		catch (Exception e) {
