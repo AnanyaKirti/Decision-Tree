@@ -40,6 +40,7 @@ public abstract class TreeBuilderClass {
 	
 	
 	
+	
 	/**
 	 *Method to calculate the total entropy of the attribute 
 	 * @param entropy	array of individual child node entropy
@@ -68,6 +69,7 @@ public abstract class TreeBuilderClass {
 		int negativeValues = 0;
 		int totalValues = instances.size();
 		
+		// populate the entropy
 		for (Instance instance : instances) {
 			if(instance.getClassLabel() == 0){
 				positiveValues++;
@@ -77,13 +79,12 @@ public abstract class TreeBuilderClass {
 			}
 		}
 		
-		if (positiveValues == 0) {
-			return 0;
-		}
-		else if(negativeValues == 0){
+		// if the values are zero
+		if (positiveValues == 0 || negativeValues == 0) {
 			return 0;
 		}
 		
+		// calculate the entropy
 		float entropy = (float) ((float)positiveValues/(float)totalValues * ((Math.log(positiveValues) - Math.log(totalValues)) / Math.log(2)));
 		entropy += (float) ((float)negativeValues/(float)totalValues * ((Math.log(negativeValues) - Math.log(totalValues)) / Math.log(2)));
 		entropy *= -1;
@@ -104,26 +105,40 @@ public abstract class TreeBuilderClass {
 		
 		float minEntropy = 1;
 		float totalEntropy = 0;
+		
 		// initialised the bestAttribute to -1.
 		int bestAttribute = -1;
+		
 		for (int i = 0; i < attributeAvailable.size(); i++) {
 			if (attributeAvailable.get(i)!= 0) {
-				List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
+				// create a float array to calculate the entropy of each child nodes.
 				float[] entropy = new float[File.FeatureValues.get(i).size()];
+				// create an int array to store the number of nodes in the child nodes
 				int[] childInstanceNumber = new int[File.FeatureValues.get(i).size()];
 				
+				// create a list of list to maintain which instance goes in which child node
+				List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
 				for(int j = 0; j<File.FeatureValues.get(i).size(); j++){
+					// initialise the list of list
 					childrenInstances.add(j, new ArrayList<Instance>());
 				}
+
+				// iterate over the instances to sort the instances.
 				for (Instance instance : instances) {
+					// select which child node the instance belongs to 
 					int index = File.FeatureValues.get(i).indexOf(instance.getFeatureValue(i));
+					// add the instance to the child node.
 					childrenInstances.get(index).add(instance);
+					// increase the value of the child node instances
 					childInstanceNumber[index] ++;
 				}
+				
+				// calculate the entropy for each of the child nodes.
 				for(int j = 0; j<File.FeatureValues.get(i).size(); j++){
 					entropy[j] = getEntropy(childrenInstances.get(j));
 				}
 				
+				// calculate the total entropy
 				totalEntropy = totalEntropy(entropy, childInstanceNumber, totalValues);
 				if (minEntropy > totalEntropy) {
 					bestAttribute = i;
@@ -134,8 +149,8 @@ public abstract class TreeBuilderClass {
 			
 		}
 
-		System.out.println(bestAttribute);
-		System.out.println(minEntropy);
+//		System.out.println(bestAttribute);
+//		System.out.println(minEntropy);
 		return bestAttribute;
 	}
 }
