@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,7 +31,24 @@ public abstract class TreeBuilderClass {
 	public static void BuildTreeHelper(Node node, List<Instance> instances, List<Integer> attributeAvailable){
 		// get the entropy of the current node.
 		float currentEntropy = getEntropy(instances);
-		getBestAttribute(instances, attributeAvailable);
+		
+		int bestAttribute = getBestAttribute(instances, attributeAvailable);
+		
+		// create a list of list to maintain which instance goes in which child node
+		List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
+		for(int j = 0; j<File.FeatureValues.get(bestAttribute).size(); j++){
+			// initialise the list of list
+			childrenInstances.add(j, new ArrayList<Instance>());
+		}
+
+		// iterate over the instances to sort the instances.
+		for (Instance instance : instances) {
+			// select which child node the instance belongs to 
+			int index = File.FeatureValues.get(bestAttribute).indexOf(instance.getFeatureValue(bestAttribute));
+			// add the instance to the child node.
+			childrenInstances.get(index).add(instance);
+			// increase the value of the child node instances
+		}
 		
 		
 	}
@@ -52,7 +68,7 @@ public abstract class TreeBuilderClass {
 		float totalEntropy = 0;
 		
 		for (int i = 0; i < childInstanceNumber.length; i++) {
-			totalEntropy += entropy[i] * (float)(childInstanceNumber[i]) / (float)totalValues; 
+			totalEntropy += entropy[i] * (childInstanceNumber[i]) / totalValues; 
 		}
 		
 		return totalEntropy;
