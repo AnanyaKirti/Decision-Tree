@@ -27,6 +27,18 @@ public abstract class TreeBuilderClass {
 	 * @param instances	The instances available at the node.
 	 */
 	public static void BuildTreeHelper(Node node, List<Instance> instances){// , List<Integer> attributeAvailable,){
+		getEntropy(instances);
+		
+	}
+
+	
+	
+	/**
+	 * Method to get entropy of the instances.
+	 * Assumes binary classes.
+	 * @param instances	The instance list at the node.
+	 */
+	private static float getEntropy(List<Instance> instances) {
 		int positiveValues = 0;
 		int negativeValues = 0;
 		int totalValues = instances.size();
@@ -39,22 +51,16 @@ public abstract class TreeBuilderClass {
 				negativeValues++;
 			}
 		}
-//		System.out.println(positiveValues);
-//		System.out.println(negativeValues);
-//		System.out.println(Math.log(positiveValues));
-//		System.out.println(Math.log(totalValues));
-		
-		float entropy = (float) (-1*(positiveValues/totalValues * (Math.log(positiveValues) - Math.log(totalValues)))
-				+  (negativeValues/totalValues * (Math.log(negativeValues) - Math.log(totalValues))  )) ;
-		System.out.println(entropy);
-		
+		float entropy = (float) ((float)positiveValues/(float)totalValues * (Math.log(positiveValues) - Math.log(totalValues) - Math.log(2)));
+		entropy += (float) ((float)negativeValues/(float)totalValues * (Math.log(negativeValues) - Math.log(totalValues) - Math.log(2)));
+		entropy *= -1;
+		return entropy;
 	}
+	
 	
 	
 	public int getBestAttribute(){
 		int bestAttribute = -1;
-		
-		
 		
 		return bestAttribute;
 	}
