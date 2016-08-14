@@ -55,11 +55,17 @@ public abstract class TreeBuilderClass {
 			}
 			
 			// create the child of the node.
+			int i = 0;
 			for (List<Instance> child : childrenInstances) {
-				node.addChild(new Node(child , node.getAttribute()));
-				if (isPure(child) != 1) {
-					BuildTreeHelper(node.getLastChild(), child);
+				
+				if (child.size() >= 0) {
+					node.addChild(new Node(child , node.getAttribute()));
+					node.getLastChild().setTargetAttributeValue(File.FeatureValues.get(bestAttribute).get(i));
+					if (isPure(child) != 1) {
+						BuildTreeHelper(node.getLastChild(), child);
+					}
 				}
+				i++;
 			}
 			
 		}		

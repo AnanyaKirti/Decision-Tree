@@ -22,6 +22,8 @@ class Node {
     //Instance list
     private List<Instance> instances;
     
+    int targetAttributeValue;
+    
     
     /**
      * 
@@ -158,6 +160,21 @@ class Node {
      */
     public int getTargetAttribute(){
     	return this.targetAttribute;
+    }
+    
+    public int hasChildren(){
+    	if (children == null) {
+			return 0;
+		}
+    	return 1;
+    }
+    
+    public int getTargetAttributeValue(){
+    	return targetAttributeValue;
+    }
+    
+    public void setTargetAttributeValue(int i){
+    	this.targetAttributeValue = i;
     }
 }
 

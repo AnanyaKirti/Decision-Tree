@@ -26,6 +26,7 @@ public class File {
 		    
 		    for (int i = 0; i < numberOfFeatures; i++) {
 				FeatureValues.add(i, new ArrayList<Integer>());
+
 		    }
 		    
 		    // read the rest of the input data.
@@ -41,7 +42,7 @@ public class File {
 		    // select the first 1000 instances as the Training set, the rest become the test set.
 		    for (int i = 0; i < 1000; i++) {
 		    	// add the instance to the TrainingSet, and delete it from the Instance Set.
-		    	TrainingSet.add(InstanceSet.remove(0));
+		    	TrainingSet.add(InstanceSet.remove(i));
 			}
 		    
 		    for (List<Integer> list : FeatureValues) {
