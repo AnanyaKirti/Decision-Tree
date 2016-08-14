@@ -9,7 +9,6 @@ public class File {
 	List<Instance> TrainingSet = new ArrayList<Instance>();
 	List<Instance> InstanceSet = new ArrayList<Instance>();
 	static List<List<Integer>> FeatureValues = new ArrayList<List<Integer>>();
-	List<Integer> attributeAvailable = new ArrayList<Integer>();
 	int numberOfInstances;
 	int numberOfFeatures;
 	
@@ -27,7 +26,6 @@ public class File {
 		    
 		    for (int i = 0; i < numberOfFeatures; i++) {
 				FeatureValues.add(i, new ArrayList<Integer>());
-				attributeAvailable.add(1);
 		    }
 		    
 		    // read the rest of the input data.

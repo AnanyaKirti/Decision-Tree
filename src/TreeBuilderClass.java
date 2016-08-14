@@ -2,26 +2,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Abstract class to build the tree
  */
 public abstract class TreeBuilderClass {
-	
-	
 	static int[] splitCount = new int[85];
-	
 	/**
 	 * 	Method to initialise the Decision Tree.
-	 * 
 	 * @param file all the information regarding the data
 	 * @return	the root node of the tree.
 	 */
 	public static Node BuildTree(File file){
 		
+		List<Integer> attributeAvailable = new ArrayList<Integer>();
+		for (int i = 0; i < file.numberOfFeatures; i++) {
+			attributeAvailable.add(1);
+		}
 		// initialise the root node of the tree
-		Node rootNode = new Node(file.InstanceSet, file.attributeAvailable );
-//		System.out.println(File.attributeAvailable.size());
+		Node rootNode = new Node(file.InstanceSet, attributeAvailable );
 		BuildTreeHelper(rootNode, file.TrainingSet);
-		
 		return rootNode;
 	}
 	
@@ -32,33 +30,21 @@ public abstract class TreeBuilderClass {
 	 * @param attributeAvailable The attributes that have not yet been used
 	 * @param instances	The instances available at the node.
 	 */
-	public static void BuildTreeHelper(Node node, List<Instance> instances){
-		
-		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
-			System.out.print(TreeBuilderClass.splitCount[i]);
-		}
-		System.out.println("  ");
-		
-		
+	public static void BuildTreeHelper(Node node, List<Instance> instances){		
 		// get the entropy of the current node.
-//		float currentEntropy = getEntropy(instances);
 		List<Integer> attributeAvailable = node.getAttribute();
-		int bestAttribute = getBestAttribute(instances, attributeAvailable);
+		int bestAttribute = getBestAttribute(instances, node.getAttribute());
 		node.setTargeAttribute(bestAttribute);
 		if (bestAttribute != -1) {
-			
-//			System.out.println(bestAttribute);
 			attributeAvailable.set(bestAttribute, new Integer(0));
 			node.setAttribute(attributeAvailable);
 			splitCount[bestAttribute]++;
-			
 			// create a list of list to maintain which instance goes in which child node
 			List<List<Instance>> childrenInstances= new ArrayList<List<Instance>>();
 			for(int j = 0; j<File.FeatureValues.get(bestAttribute).size(); j++){
 				// initialise the list of list
 				childrenInstances.add(j, new ArrayList<Instance>());
 			}
-	
 			// iterate over the instances to sort the instances.
 			for (Instance instance : instances) {
 				// select which child node the instance belongs to 
@@ -70,7 +56,7 @@ public abstract class TreeBuilderClass {
 			
 			// create the child of the node.
 			for (List<Instance> child : childrenInstances) {
-				node.addChild(new Node(child , attributeAvailable));
+				node.addChild(new Node(child , node.getAttribute()));
 				if (isPure(child) != 1) {
 					BuildTreeHelper(node.getLastChild(), child);
 				}
@@ -99,7 +85,6 @@ public abstract class TreeBuilderClass {
 		
 		return totalEntropy;
 	}
-	
 	
 	/**
 	 * Method to get entropy of the instances.
@@ -132,9 +117,7 @@ public abstract class TreeBuilderClass {
 		entropy *= -1;
 
 		return entropy;
-		
 	}
-	
 	
 	/**
 	 * method to get the best Attribute on the basis of information gain.
@@ -186,20 +169,14 @@ public abstract class TreeBuilderClass {
 					bestAttribute = i;
 					minEntropy = totalEntropy;
 				}
-				
 			}
-			
 		}
-
-//		System.out.println(bestAttribute);
-//		System.out.println(minEntropy);
 		return bestAttribute;
 	}
 	
 	
 	
 	/**
-	 * 
 	 * Method to check if the node is pure, i.e. is populated with only one class label.
 	 * @param instances	the instances associated with the node
 	 * @return	returns 1 if true, 0 if false.
@@ -218,4 +195,3 @@ public abstract class TreeBuilderClass {
 		return state;
 	}
 }
-

@@ -41,8 +41,9 @@ class Node {
         this();
         this.parent=null;
         this.targetAttribute=-1;
+//        this.attributeAvailable = attributeAvailable;
         setAttribute(attributeAvailable);
-        setInstances(instances);
+        this.instances = instances;
     }
     
     /** to get children array list
@@ -106,7 +107,11 @@ class Node {
      * @param attr sets the attribute
      */
     public void setAttribute(List<Integer> attribute) {
-        this.attributeAvailable = attribute;
+        List<Integer> dummy = new ArrayList<Integer>();
+        for (Integer integer : attribute) {
+			dummy.add(new Integer(integer));
+		}
+        this.attributeAvailable = dummy;
     }
     
     
