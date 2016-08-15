@@ -6,6 +6,8 @@ import java.util.List;
  */
 public abstract class TreeBuilderClass {
 	static int[] splitCount = new int[85];
+	static int numberOfNodes = 0;
+	
 	/**
 	 * 	Method to initialise the Decision Tree.
 	 * @param file all the information regarding the data
@@ -20,6 +22,7 @@ public abstract class TreeBuilderClass {
 		// initialise the root node of the tree
 		Node rootNode = new Node(file.TrainingSet, attributeAvailable );
 		BuildTreeHelper(rootNode, file.TrainingSet);
+		System.out.println("Finished Building the Tree");
 		return rootNode;
 	}
 	
@@ -59,6 +62,7 @@ public abstract class TreeBuilderClass {
 			for (List<Instance> child : childrenInstances) {
 				
 				if (child.size() >= 0) {
+					numberOfNodes++;
 					node.addChild(new Node(child , node.getAttribute()));
 					node.getLastChild().setTargetAttributeValue(File.FeatureValues.get(bestAttribute).get(i));
 					if (isPure(child) != 1) {
@@ -69,10 +73,7 @@ public abstract class TreeBuilderClass {
 			}
 			
 		}		
-	}
-
-	
-	
+	}	
 	
 	
 	/**
@@ -198,4 +199,6 @@ public abstract class TreeBuilderClass {
 		}
 		return state;
 	}
+	
+	
 }

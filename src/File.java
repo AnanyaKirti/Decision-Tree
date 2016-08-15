@@ -13,16 +13,14 @@ public class File {
 	int numberOfFeatures;
 	
 	public File(String fileName){
-		
-
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 			// read the 1st line of input, that is the number of Instances
 		    numberOfInstances = Integer.parseInt(br.readLine());
-		    System.out.println("number of Instances is: " + numberOfInstances);
+		    System.out.println("Number of Instances is: " + numberOfInstances);
 
 			// read the 2nd line of input, that is the number of Features
 		    numberOfFeatures = Integer.parseInt(br.readLine());
-		    System.out.println("number of Features is: " + numberOfFeatures); 
+		    System.out.println("Number of Features is: " + numberOfFeatures); 
 		    
 		    for (int i = 0; i < numberOfFeatures; i++) {
 				FeatureValues.add(i, new ArrayList<Integer>());
@@ -48,6 +46,7 @@ public class File {
 		    for (List<Integer> list : FeatureValues) {
 		    	Collections.sort(list);
 			}
+		    System.out.println("Finished Reading the file.");
 		}
 		catch (Exception e) {
 			System.out.println("Error in opening file!");

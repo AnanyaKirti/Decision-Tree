@@ -2,8 +2,6 @@ import apple.laf.JRSUIUtils.Tree;
 
 public class DecisionTree {
 
-	
-	
 	/**
 	 * 
 	 * @param args input the file, as well as the test number
@@ -12,15 +10,15 @@ public class DecisionTree {
 		// TODO use args
 		
 		long startTime = System.nanoTime();
-		
-		File file = new File("ticdata2000.txt");
-		Node rootNode = TreeBuilderClass.BuildTree(file);
-		
-		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
-			System.out.println("Feature " + i + " count : " + TreeBuilderClass.splitCount[i]);
+		int testNumber = Integer.parseInt(args[1]);
+		if ( testNumber == 1 ) {
+			Test1.Start(args[0]);			
+		}
+		else if (testNumber == 2 ) {
+			Test2.Start(args[0]);
 		}
 		
-		TreeTesterClass.TreeTester(rootNode, file);
+		
 		long executionTime = (System.nanoTime() - startTime) / 1000000000;
 		System.out.print("Time for execution " + executionTime);
 		
