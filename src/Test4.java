@@ -14,8 +14,5 @@ public class Test4 {
 		accuracy = TreeTesterClass.TreeTester(rootNode, file);
 		System.out.println("Tree Classification Accuracy: " + accuracy);
 		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
-		
-		
-		
 	}
 }

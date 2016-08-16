@@ -7,7 +7,7 @@ public class testTrees {
 		File file = new File(fileName);
 		List<Node> trees=new ArrayList();
 		
-		for (int i = 0; i < 100; i++) {			
+		for (int i = 0; i < 100;i++) {			
 			trees.add(i,RandomTreeBuilder.BuildTree(file));
 			}
 		

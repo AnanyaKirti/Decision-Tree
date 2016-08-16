@@ -17,6 +17,10 @@ public class DecisionTree {
 		else if (testNumber == 2 ) {
 			Test2.Start(args[0]);
 		}
+		else if (testNumber == 3) {
+			testPruning.Start(args[0]);
+		}
+		
 		else if (testNumber == 4) {
 			testTrees.Start(args[0]);
 		}
