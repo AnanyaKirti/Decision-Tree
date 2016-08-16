@@ -1,21 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test4 {
-	public static void Start(String fileName){
-		
+	public static void Start(String fileName) {
 		File file = new File(fileName);
-		Node rootNode = TreeBuilderClass.BuildTree(file);
+		List<Node> forest = new ArrayList<Node>();
 		
-		for (int i = 0; i < TreeBuilderClass.splitCount.length; i++) {
-			System.out.println("Feature " + i + " count : " + TreeBuilderClass.splitCount[i]);
-		}
+		for (int i = 0; i < 100; i++) {			
+			forest.add(i,RandomTreeBuilder.BuildTree(file));
+			}
 		
 		float accuracy;
-		float accuracyEarlyStopping;
-		accuracy = TreeTesterClass.TreeTester(rootNode, file);
+		accuracy = RandomClassifier.TreeTester(forest, file);
+
 		System.out.println("Tree Classification Accuracy: " + accuracy);
-		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
-		
-		
+		}
 		
 	}
-}

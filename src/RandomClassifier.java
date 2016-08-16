@@ -1,8 +1,7 @@
 	import java.util.List;
 
 
-public abstract class randomClassifier{
-	
+public abstract class RandomClassifier{
 	public static float TreeTester(List<Node> trees, File file){
 			float accuracy = 0;
 			int correct = 0;
