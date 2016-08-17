@@ -1,31 +1,55 @@
 import java.util.List;
 
+/**
+ * Abstract class to Test Tree formed
+ */
 public abstract class TreeTesterClass {
+
 	static int maxLevel = 4;
-	public static float TreeTester(Node rootNode, File file){
+
+	/**
+	 * Static function to test the accuracy of the tree. With a max level of
+	 * maxLevel
+	 * 
+	 * @param rootNode
+	 *            The rootNode of the tree
+	 * @param file
+	 *            The File data
+	 * @return The acccuracy of the tree.
+	 */
+	public static float TreeTester(Node rootNode, File file) {
 		float accuracy = 0;
 		int correct = 0;
 		int total = 0;
-		
+
 		for (Instance instance : file.InstanceSet) {
 			total++;
-			if( Classifier(rootNode, instance) == instance.getClassLabel()){
+			if (Classifier(rootNode, instance) == instance.getClassLabel()) {
 				correct++;
-			}		
+			}
 		}
-		accuracy = (float)correct/ total *100;
+		accuracy = (float) correct / total * 100;
 		return accuracy;
 	}
-	
-	public static int Classifier(Node node, Instance instance){
+
+	/**
+	 * Static recursive function to classify an instance, using the tree formed.
+	 * 
+	 * @param node
+	 *            The current node being considered.
+	 * @param instance
+	 *            The Instance being considered to be classified
+	 * @return The class label of the instance
+	 */
+	public static int Classifier(Node node, Instance instance) {
 		int label = 0;
 		int state = 0;
 		if (node.flag == false) {
-				
-			if( node.hasChildren() == 1){
+
+			if (node.hasChildren() == 1) {
 				List<Node> children = node.getChildren();
 				for (Node child : children) {
-					if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()){
+					if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()) {
 						label = Classifier(child, instance);
 						state = 1;
 						break;
@@ -34,48 +58,64 @@ public abstract class TreeTesterClass {
 				if (state == 0) {
 					return Majority(node);
 				}
-			}
-			else{
+			} else {
 				return Majority(node);
 			}
 			return label;
-		}
-		else{
+		} else {
 			return Majority(node);
 		}
-		
+
 	}
-	
-	
-	public static float TreeTesterEarlyStopping(Node rootNode, File file, int level){
+
+	/**
+	 * Static function to test the tree in case of early stopping.
+	 * 
+	 * @param rootNode
+	 *            rootNode of the tree
+	 * @param file
+	 *            File containing the dataset
+	 * @param level
+	 *            currenct level being considered.
+	 * @return returns the accuracy of the early stopping tree.
+	 */
+	public static float TreeTesterEarlyStopping(Node rootNode, File file, int level) {
 		maxLevel = level;
 		float accuracy = 0;
 		int correct = 0;
 		int total = 0;
-		
+
 		for (Instance instance : file.InstanceSet) {
 			total++;
-			if( ClassifierEarlyStopping(rootNode, instance, 0) == instance.getClassLabel()){
+			if (ClassifierEarlyStopping(rootNode, instance, 0) == instance.getClassLabel()) {
 				correct++;
-			}		
+			}
 		}
-		accuracy = (float)correct/ total * 100;
-//		System.out.println("Total: "+total+" correct: "+correct);
-//		System.out.println(accuracy*100);
-//		System.out.println(random);
+		accuracy = (float) correct / total * 100;
 		return accuracy;
 	}
-	
-	public static int ClassifierEarlyStopping(Node node, Instance instance ,int level){
+
+	/**
+	 * Method to classifiy the instance with early stopping
+	 * 
+	 * @param node
+	 *            The node in consideration
+	 * @param instance
+	 *            The instance in consideration
+	 * @param level
+	 *            MaxLevel allowed
+	 * @return The class label of the instance.
+	 */
+	public static int ClassifierEarlyStopping(Node node, Instance instance, int level) {
 		int label = 0;
 		int state = 0;
 		if (level >= maxLevel) {
 			return Majority(node);
 		}
-		if( node.hasChildren() == 1){
+		if (node.hasChildren() == 1) {
 			List<Node> children = node.getChildren();
 			for (Node child : children) {
-				if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()){
+				if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()) {
 					label = ClassifierEarlyStopping(child, instance, ++level);
 					state = 1;
 					break;
@@ -84,38 +124,36 @@ public abstract class TreeTesterClass {
 			if (state == 0) {
 				return Majority(node);
 			}
-		}
-		else{
+		} else {
 			return Majority(node);
 		}
 		return label;
-		
+
 	}
-	
-	
-	private static int Majority(Node node){
+
+	/**
+	 * Static method to return the majority of the class label at the node
+	 * 
+	 * @param node
+	 *            The node in consideration
+	 * @return returns the class label which is in majority.
+	 */
+	private static int Majority(Node node) {
 		int positive = 0;
 		int negative = 0;
 		for (Instance instance : node.getInstances()) {
 			if (instance.getClassLabel() == 0) {
 				positive++;
-			}
-			else {
+			} else {
 				negative++;
 			}
 		}
 		if (positive > negative) {
 			return 0;
-		}
-		else if (negative > positive) {
+		} else if (negative > positive) {
 			return 1;
-		}
-		else{
-			return (int) Math.random() %2;
+		} else {
+			return (int) Math.random() % 2;
 		}
 	}
-	
-	
-	
 }
-
