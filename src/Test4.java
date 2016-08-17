@@ -9,7 +9,8 @@ public class Test4 {
 		File file = new File(fileName);
 		List<Node> forest = new ArrayList<Node>();
 
-		for (int i = 0; i < 100; i++) {
+		int numberOfTrees= 100;
+		for (int i = 0; i < numberOfTrees; i++) {
 			forest.add(i, RandomTreeBuilder.BuildTree(file));
 		}
 
