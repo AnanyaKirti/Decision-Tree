@@ -3,16 +3,23 @@ public abstract class Test3 {
 	static float accuracy;
 	static Node rootNode;
 	static File file;
+	static int numberOfNodesPrunedTree;
+	
 	public static void Start(String fileName){
 		
 		file = new File(fileName);
 		rootNode = TreeBuilderClass.BuildTree(file);
+		numberOfNodesPrunedTree = TreeBuilderClass.numberOfNodes;
 
 		accuracy = TreeTesterClass.TreeTester(rootNode, file);
-		System.out.println(accuracy);
+		
+		System.out.println("Accuracy of the tree: "+accuracy);
+		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
 		
 		PruneTree(rootNode);
-		System.out.println(accuracy);
+		System.out.println("Complete pruning");
+		System.out.println("Accuracy of the pruned tree "+ accuracy);
+		System.out.println("Number of Nodes in the pruned tree " + numberOfNodesPrunedTree);
 		
 //		System.out.println("Tree Classification Accuracy: " + accuracy);
 //		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
@@ -23,9 +30,9 @@ public abstract class Test3 {
 		if (isParentOfLeaves(node)) {
 			node.setFlag(true);
 			if (isBetter(node, file)) {
+				numberOfNodesPrunedTree -= node.getChildren().size();
 				node.deleteChildren();
 				node.setFlag(false);
-				
 			}
 		}
 		else{
@@ -37,6 +44,7 @@ public abstract class Test3 {
 		if (isParentOfLeaves(node)) {
 			node.setFlag(true);
 			if (isBetter(node, file)) {
+				numberOfNodesPrunedTree -= node.getChildren().size();
 				node.deleteChildren();
 				node.setFlag(false);
 			}

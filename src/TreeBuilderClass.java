@@ -6,7 +6,7 @@ import java.util.List;
  */
 public abstract class TreeBuilderClass {
 	static int[] splitCount = new int[85];
-	static int numberOfNodes = 0;
+	static int numberOfNodes = 1;
 	
 	/**
 	 * 	Method to initialise the Decision Tree.
@@ -60,7 +60,6 @@ public abstract class TreeBuilderClass {
 			// create the child of the node.
 			int i = 0;
 			for (List<Instance> child : childrenInstances) {
-				
 				if (child.size() >= 0) {
 					numberOfNodes++;
 					node.addChild(new Node(child , node.getAttribute()));
@@ -199,6 +198,9 @@ public abstract class TreeBuilderClass {
 		}
 		return state;
 	}
+	
+	
+	
 	
 	
 }
