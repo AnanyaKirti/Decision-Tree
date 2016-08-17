@@ -14,31 +14,35 @@ public abstract class TreeTesterClass {
 			}		
 		}
 		accuracy = (float)correct/ total *100;
-//		System.out.println("Total: "+total+" correct: "+correct);
-//		System.out.println(accuracy*100);
 		return accuracy;
 	}
 	
 	public static int Classifier(Node node, Instance instance){
 		int label = 0;
 		int state = 0;
-		if( node.hasChildren() == 1){
-			List<Node> children = node.getChildren();
-			for (Node child : children) {
-				if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()){
-					label = Classifier(child, instance);
-					state = 1;
-					break;
+		if (node.flag == false) {
+				
+			if( node.hasChildren() == 1){
+				List<Node> children = node.getChildren();
+				for (Node child : children) {
+					if (instance.getFeatureValue((node.getTargetAttribute())) == child.getTargetAttributeValue()){
+						label = Classifier(child, instance);
+						state = 1;
+						break;
+					}
+				}
+				if (state == 0) {
+					return Majority(node);
 				}
 			}
-			if (state == 0) {
+			else{
 				return Majority(node);
 			}
+			return label;
 		}
 		else{
 			return Majority(node);
 		}
-		return label;
 		
 	}
 	

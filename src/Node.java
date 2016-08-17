@@ -23,6 +23,7 @@ class Node {
     private List<Instance> instances;
     
     int targetAttributeValue;
+    boolean flag = false;
     
     
     /**
@@ -175,6 +176,14 @@ class Node {
     
     public void setTargetAttributeValue(int i){
     	this.targetAttributeValue = i;
+    }
+    
+    public void setFlag(boolean state){
+    	flag = state;
+    }
+    
+    public void deleteChildren(){
+    	this.children = null;
     }
 }
 
