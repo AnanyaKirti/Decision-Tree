@@ -5,7 +5,7 @@ import java.util.List;
  */
 public abstract class TreeTesterClass {
 
-	static int maxLevel = 4;
+	static int maxLevel;
 
 	/**
 	 * Static function to test the accuracy of the tree. With a max level of
