@@ -156,4 +156,34 @@ public abstract class TreeTesterClass {
 			return (int) Math.random() % 2;
 		}
 	}
+
+	/**
+	 * Function to count the number of nodes in the early stopping tree with
+	 * maxlevel maxLevel.
+	 * 
+	 * @param node
+	 *            the current node of the tree. current node in consideration.
+	 */
+	private static void setNumberOfNodes(Node node, int level) {
+		if (level <= maxLevel) {
+			for (Node childNode : node.getChildren()) {
+				TreeBuilderClass.numberOfNodes++;
+				setNumberOfNodes(childNode, ++level);
+			}
+		}
+	}
+
+	/**
+	 * Function to get the number of nodes in the early stopping tree.
+	 * 
+	 * @param rootNode
+	 *            root node of the tree.
+	 * @return 
+	 * 			  the number of nodes of the tree.
+	 */
+	public static int getNumberOfNodes(Node rootNode) {
+		TreeBuilderClass.numberOfNodes = 0;
+		setNumberOfNodes(rootNode, 0);
+		return TreeBuilderClass.numberOfNodes;
+	}
 }
