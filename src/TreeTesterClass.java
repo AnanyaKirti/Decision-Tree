@@ -155,8 +155,7 @@ public abstract class TreeTesterClass {
 		} else {
 			if (Math.random() <= 0.5) {
 				return 1;
-			}
-			else{
+			} else {
 				return 0;
 			}
 		}
@@ -183,12 +182,75 @@ public abstract class TreeTesterClass {
 	 * 
 	 * @param rootNode
 	 *            root node of the tree.
-	 * @return 
-	 * 			  the number of nodes of the tree.
+	 * @return the number of nodes of the tree.
 	 */
 	public static int getNumberOfNodes(Node rootNode) {
-		TreeBuilderClass.numberOfNodes = 0;
+		TreeBuilderClass.numberOfNodes = 1;
 		setNumberOfNodes(rootNode, 0);
 		return TreeBuilderClass.numberOfNodes;
+	}
+
+	/**
+	 * Function to count the number of Terminal nodes in the early stopping tree
+	 * with maxlevel maxLevel.
+	 * 
+	 * @param node
+	 *            the current node of the tree. current node in consideration.
+	 */
+	private static void setNumberOfTerminalNodes(Node node, int level) {
+		if (level < maxLevel) {
+			if (node.hasChildren() == 0) {
+				TreeBuilderClass.numberOfTerminalNodes++;
+			}
+			for (Node childNode : node.getChildren()) {
+				setNumberOfTerminalNodes(childNode, ++level);
+			}
+		} else if (level == maxLevel) {
+			for (Node childNode : node.getChildren()) {
+				TreeBuilderClass.numberOfTerminalNodes++;
+			}
+		}
+	}
+
+	/**
+	 * Function to get the number of terminal nodes in the early stopping tree.
+	 * 
+	 * @param rootNode
+	 *            root node of the tree.
+	 * @return the number of nodes of the tree.
+	 */
+	public static int getNumberOfTerminalNodes(Node rootNode) {
+		TreeBuilderClass.numberOfTerminalNodes = 0;
+		setNumberOfTerminalNodes(rootNode, 0);
+		return TreeBuilderClass.numberOfTerminalNodes;
+	}
+
+	/**
+	 * Function to count the number of Terminal nodes in the early stopping tree
+	 * with maxlevel maxLevel.
+	 * 
+	 * @param node
+	 *            the current node of the tree. current node in consideration.
+	 */
+	private static void setNumberOfLeafNodes(Node node) {
+		if (node.hasChildren() == 0) {
+			TreeBuilderClass.numberOfLeafNodes++;
+		}
+		for (Node childNode : node.getChildren()) {
+			setNumberOfLeafNodes(childNode);
+		}
+	}
+
+	/**
+	 * Function to get the number of terminal nodes in the early stopping tree.
+	 * 
+	 * @param rootNode
+	 *            root node of the tree.
+	 * @return the number of nodes of the tree.
+	 */
+	public static int getNumberOfLeafNodes(Node rootNode) {
+		TreeBuilderClass.numberOfLeafNodes = 0;
+		setNumberOfLeafNodes(rootNode);
+		return TreeBuilderClass.numberOfLeafNodes;
 	}
 }

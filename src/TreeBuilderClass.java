@@ -7,6 +7,8 @@ import java.util.List;
 public abstract class TreeBuilderClass {
 	static int[] splitCount = new int[85];
 	static int numberOfNodes = 1;
+	static int numberOfTerminalNodes = 0;
+	static int numberOfLeafNodes = 0;
 
 	/**
 	 * Method to initialise the Decision Tree.

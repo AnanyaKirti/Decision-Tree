@@ -15,12 +15,14 @@ public abstract class Test1 {
 		accuracy = TreeTesterClass.TreeTester(rootNode, file);
 		System.out.println("Tree Classification Accuracy: " + accuracy);
 		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
+		System.out.println("Number of Leaf Nodes in the tree " + TreeTesterClass.getNumberOfLeafNodes(rootNode));
 
 		int maxLevel = 4;
 		float accuracyEarlyStopping;
-		System.out.println("Level used for early stopping is" + maxLevel);
+		System.out.println("Level used for early stopping is " + maxLevel);
 		accuracyEarlyStopping = TreeTesterClass.TreeTesterEarlyStopping(rootNode, file, maxLevel);
 		System.out.println("Number of Nodes in the early stopping tree " + TreeTesterClass.getNumberOfNodes(rootNode));
+		System.out.println("Number of Terminal Nodes in the early stopping tree " + TreeTesterClass.getNumberOfTerminalNodes(rootNode));
 
 		System.out.println("Early Stopping Tree Accuracy is: " + accuracyEarlyStopping);
 	}
