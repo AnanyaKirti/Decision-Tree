@@ -9,16 +9,21 @@ public abstract class Test2 {
 	public static void Start(String fileName) {
 
 		File file = new File(fileName);
-		float errorPercentage = 10f;
-		System.out.println("Error percentage is " + errorPercentage);
-		addNoise(file.TrainingSet, errorPercentage);
 
 		Node rootNode = TreeBuilderClass.BuildTree(file);
 
 		float accuracy;
 		accuracy = TreeTesterClass.TreeTester(rootNode, file);
 		System.out.println("Tree Classification Accuracy: " + accuracy);
-		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
+
+		float errorPercentage = 10f;
+		System.out.println("Error percentage is " + errorPercentage);
+		addNoise(file.TrainingSet, errorPercentage);
+
+		rootNode = TreeBuilderClass.BuildTree(file);
+
+		float treeWithErrorAccuracy = TreeTesterClass.TreeTester(rootNode, file);
+		System.out.println("Tree with Error Classification Accuracy: " + treeWithErrorAccuracy);
 
 	}
 
@@ -32,10 +37,13 @@ public abstract class Test2 {
 	 */
 	private static void addNoise(List<Instance> TrainingSet, float errorPercentage) {
 		int range = (int) (TrainingSet.size() * errorPercentage / 100);
-		if (0 < errorPercentage && errorPercentage < 100) {
+		if (0 <= errorPercentage && errorPercentage <= 100) {
 			for (int i = 0; i < range; i++) {
-				TrainingSet.get(i).setClassLabel((int) Math.random() % 2);
-
+				if (Math.random() <= 0.5) {
+					TrainingSet.get(i).setClassLabel(0);
+				} else {
+					TrainingSet.get(i).setClassLabel(1);
+				}
 			}
 			long seed = System.nanoTime();
 			Collections.shuffle(TrainingSet, new Random(seed));
@@ -43,5 +51,4 @@ public abstract class Test2 {
 			System.err.println("Please enter a percentage of error!!");
 		}
 	}
-
 }

@@ -38,7 +38,7 @@ public abstract class TreeBuilderClass {
 	 * @param instances
 	 *            The instances available at the node.
 	 */
-	public static void BuildTreeHelper(Node node, List<Instance> instances) {
+	private static void BuildTreeHelper(Node node, List<Instance> instances) {
 		// get the entropy of the current node.
 		List<Integer> attributeAvailable = node.getAttribute();
 		int bestAttribute = getBestAttribute(instances, node.getAttribute());
@@ -142,11 +142,11 @@ public abstract class TreeBuilderClass {
 	 * @param instances
 	 *            all the instances at the node
 	 * @param attributeAvailable
-	 *            all the attrivutes available at the node 1 if available, 0 if
+	 *            all the attributes available at the node 1 if available, 0 if
 	 *            not available.
 	 * @return returns the index of the best attribute available.
 	 */
-	public static int getBestAttribute(List<Instance> instances, List<Integer> attributeAvailable) {
+	private static int getBestAttribute(List<Instance> instances, List<Integer> attributeAvailable) {
 		int totalValues = instances.size();
 
 		float minEntropy = 1;

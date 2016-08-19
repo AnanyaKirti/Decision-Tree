@@ -153,7 +153,12 @@ public abstract class TreeTesterClass {
 		} else if (negative > positive) {
 			return 1;
 		} else {
-			return (int) Math.random() % 2;
+			if (Math.random() <= 0.5) {
+				return 1;
+			}
+			else{
+				return 0;
+			}
 		}
 	}
 

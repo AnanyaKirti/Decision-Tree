@@ -39,7 +39,7 @@ class Instance {
 	 *            set the class label to the value i
 	 */
 	public void setClassLabel(int i) {
-		this.classLabel = i;
+		classLabel = i;
 	}
 
 	/**
