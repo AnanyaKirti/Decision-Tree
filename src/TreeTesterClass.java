@@ -65,7 +65,6 @@ public abstract class TreeTesterClass {
 		} else {
 			return Majority(node);
 		}
-
 	}
 
 	/**
