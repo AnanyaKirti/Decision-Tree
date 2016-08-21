@@ -17,11 +17,14 @@ public abstract class Test3 {
 
 		System.out.println("Accuracy of the tree: " + accuracy);
 		System.out.println("Number of Nodes in the tree " + TreeBuilderClass.numberOfNodes);
-
+		System.out.println("Number of Leaf Nodes in the tree " + TreeTesterClass.getNumberOfLeafNodes(rootNode));
+		
 		PruneTree(rootNode);
+		
 		System.out.println("Complete pruning");
 		System.out.println("Accuracy of the pruned tree " + accuracy);
 		System.out.println("Number of Nodes in the pruned tree " + numberOfNodesPrunedTree);
+		System.out.println("Number of Leaf Nodes in the tree " + TreeTesterClass.getNumberOfLeafNodes(rootNode));
 	}
 
 	/**
