@@ -10,8 +10,8 @@ public class Test4 {
 		List<Node> forest = new ArrayList<Node>();
 		
 		float accuracy;
-		int numberOfTrees= 100;
-		for(int j = 0; j < numberOfTrees; j++){
+		int numberOfTrees = 20;
+		for(int j = 1; j < numberOfTrees; j++){
 			for (int i = 0; i < j; i++) {
 				forest.add(i, RandomTreeBuilder.BuildTree(file));
 			}
